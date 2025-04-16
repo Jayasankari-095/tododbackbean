@@ -44,8 +44,8 @@ jobs:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         session_token: ${{ secrets.AWS_SESSION_TOKEN }} # Include the session token
-        application_name: final jaya todo # Replace with your Elastic Beanstalk application name
-        environment_name: Finaljayatodo-env # Replace with your Elastic Beanstalk environment name
+        application_name: final jaya todo # Replace with your Elastic Beanstalk application name.
+        environment_name: Finaljayatodo-env # Replace with your Elastic Beanstalk environment name.
         region: ${{ secrets.AWS_REGION }}
         version_label: v-${{ github.run_number }}
         deployment_package: app.zip
