@@ -49,4 +49,4 @@ jobs:
         region: ${{ secrets.AWS_REGION }}
         version_label: v-${{ github.run_number }}
         deployment_package: app.zip
-        bucket_name: jsbuckettodo # Replace with your S3 bucket name
+        bucket_name: jsbuckettodo # Replace with your S3 bucket name.
