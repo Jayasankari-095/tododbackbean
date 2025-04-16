@@ -29,15 +29,17 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        session_token: ${{ secrets.AWS_SESSION_TOKEN }} # Include the session token
         application_name: final jaya todo # Replace with your Elastic Beanstalk application name
         environment_name: Finaljayatodo-env # Replace with your Elastic Beanstalk environment name
         region: ${{ secrets.AWS_REGION }}
         version_label: v-${{ github.run_number }}
         deployment_package: app.zip
-        bucket_name: todoback # Replace with your S3 bucket name.
+        bucket_name: jsbuckettodo # Replace with your S3 bucket name
