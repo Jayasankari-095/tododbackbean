@@ -3,7 +3,7 @@ name: Deploy to AWS Elastic Beanstalk
 on:
   push:
     branches:
-      - main  # Change this to your default branch if it's not 'main'
+      - main  # Change if your default branch is different
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '22' # Use the Node.js version your app requires
+        node-version: '22'  # Update if using a different Node.js version
 
     - name: Install dependencies
       run: npm install
@@ -24,11 +24,13 @@ jobs:
     - name: Zip application
       run: zip -r app.zip . -x ".git/*"
 
+    - name: Verify app.zip exists
+      run: ls -lh app.zip
+
     - name: Configure AWS CLI
       run: |
         aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws configure set aws_session_token ${{ secrets.AWS_SESSION_TOKEN }}
         aws configure set region ${{ secrets.AWS_REGION }}
 
     - name: Upload to S3
@@ -36,17 +38,15 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        session_token: ${{ secrets.AWS_SESSION_TOKEN }} # Include the session token
-        application_name: final jaya todo # Replace with your Elastic Beanstalk application name.
-        environment_name: Finaljayatodo-env # Replace with your Elastic Beanstalk environment name.
+        application_name: "final jaya todo"  
+        environment_name: Finaljayatodo-env  
         region: ${{ secrets.AWS_REGION }}
         version_label: v-${{ github.run_number }}
         deployment_package: app.zip
-        bucket_name: jsbuckettodo # Replace with your S3 bucket name.
+        bucket_name: jsbuckettodo  
